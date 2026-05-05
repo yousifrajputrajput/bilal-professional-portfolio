@@ -1,0 +1,375 @@
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0D0D0D;--bg2:#161616;--bg3:#1E1E1E;--bg4:#262626;
+  --border:#2A2A2A;--border2:#383838;
+  --gold:#C9A84C;--gold-dim:#8A6E2F;
+  --text:#F0EDE8;--text2:#9A9690;--text3:#5A5754;
+  --red:#E24B4A;--green:#639922;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.5}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;height:56px}
+.nav-logo{font-family:'DM Serif Display',serif;font-size:22px;letter-spacing:0.08em;color:var(--gold)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text2);text-decoration:none;cursor:pointer;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.cart-btn{background:var(--gold);color:#0D0D0D;border:none;border-radius:8px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:6px;letter-spacing:0.04em}
+.cart-count{background:#0D0D0D;color:var(--gold);width:18px;height:18px;border-radius:50%;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:500}
+.search-box{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--text);font-size:12px;width:160px;outline:none}
+.search-box::placeholder{color:var(--text3)}
+
+/* HERO BANNER */
+.hero{background:var(--bg2);border-bottom:1px solid var(--border);padding:40px 28px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.hero-eyebrow{font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.hero-title{font-family:'DM Serif Display',serif;font-size:36px;font-weight:400;line-height:1.15;color:var(--text);margin-bottom:12px}
+.hero-title em{color:var(--gold);font-style:italic}
+.hero-sub{font-size:13px;color:var(--text2);line-height:1.7;max-width:340px;margin-bottom:24px}
+.hero-actions{display:flex;gap:12px}
+.btn-gold{background:var(--gold);color:#0D0D0D;border:none;border-radius:8px;padding:10px 24px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.btn-gold:hover{opacity:.85}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border2);border-radius:8px;padding:10px 24px;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.btn-outline:hover{background:var(--bg3)}
+.hero-stats{display:flex;gap:28px;margin-top:28px;padding-top:24px;border-top:1px solid var(--border)}
+.hero-stat-num{font-family:'DM Serif Display',serif;font-size:22px;color:var(--gold)}
+.hero-stat-lbl{font-size:10px;color:var(--text3);letter-spacing:0.04em;text-transform:uppercase;margin-top:2px}
+.hero-visual{background:var(--bg3);border:1px solid var(--border);border-radius:16px;height:200px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.hero-visual-icon{font-size:48px;opacity:.4}
+.hero-visual-lbl{font-size:11px;color:var(--text3);letter-spacing:0.06em;text-transform:uppercase}
+
+/* CATEGORY PILLS */
+.cats{padding:20px 28px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--border);background:var(--bg)}
+.cat-pill{background:var(--bg3);border:1px solid var(--border);border-radius:100px;padding:6px 16px;font-size:11px;letter-spacing:0.05em;text-transform:uppercase;color:var(--text2);cursor:pointer;transition:all .2s}
+.cat-pill:hover{border-color:var(--gold-dim);color:var(--text)}
+.cat-pill.active{background:var(--gold);color:#0D0D0D;border-color:var(--gold);font-weight:500}
+
+/* MAIN LAYOUT */
+.main{display:grid;grid-template-columns:200px 1fr;gap:0;min-height:500px}
+
+/* SIDEBAR */
+.sidebar{background:var(--bg2);border-right:1px solid var(--border);padding:24px 20px}
+.sidebar-section{margin-bottom:28px}
+.sidebar-title{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text3);margin-bottom:14px;font-weight:500}
+.filter-option{display:flex;align-items:center;gap:8px;margin-bottom:8px;cursor:pointer}
+.filter-option input[type=checkbox]{accent-color:var(--gold);width:13px;height:13px}
+.filter-option label{font-size:12px;color:var(--text2);cursor:pointer}
+.filter-option label:hover{color:var(--text)}
+.price-range{display:flex;flex-direction:column;gap:8px}
+.price-inputs{display:flex;gap:6px}
+.price-input{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 8px;color:var(--text);font-size:11px;width:70px;outline:none}
+.size-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}
+.size-btn{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:5px 4px;font-size:11px;color:var(--text2);cursor:pointer;text-align:center;transition:all .2s}
+.size-btn:hover,.size-btn.active{background:var(--gold);color:#0D0D0D;border-color:var(--gold)}
+.color-swatches{display:flex;gap:6px;flex-wrap:wrap}
+.swatch{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border-color .2s}
+.swatch:hover,.swatch.active{border-color:var(--gold)}
+.apply-btn{width:100%;background:var(--gold);color:#0D0D0D;border:none;border-radius:8px;padding:8px;font-size:11px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;cursor:pointer;margin-top:8px}
+
+/* PRODUCTS AREA */
+.products-area{background:var(--bg);padding:20px 24px}
+.products-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.products-count{font-size:12px;color:var(--text2)}
+.sort-select{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:5px 10px;color:var(--text);font-size:11px;outline:none;cursor:pointer}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}
+
+/* PRODUCT CARD */
+.product-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;cursor:pointer;transition:border-color .25s,transform .2s}
+.product-card:hover{border-color:var(--gold-dim);transform:translateY(-3px)}
+.product-img{height:180px;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative}
+.product-emoji{font-size:52px;opacity:.55}
+.product-badge{position:absolute;top:10px;left:10px;background:var(--gold);color:#0D0D0D;font-size:9px;font-weight:500;letter-spacing:0.05em;text-transform:uppercase;padding:3px 8px;border-radius:4px}
+.product-badge.sale{background:var(--red);color:#fff}
+.product-wishlist{position:absolute;top:10px;right:10px;background:var(--bg);border:1px solid var(--border);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;opacity:.7;transition:opacity .2s}
+.product-wishlist:hover{opacity:1}
+.product-info{padding:12px}
+.product-brand{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:3px}
+.product-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.product-price{display:flex;align-items:center;gap:6px;margin-bottom:10px}
+.price-current{font-size:14px;font-weight:500;color:var(--gold)}
+.price-old{font-size:11px;color:var(--text3);text-decoration:line-through}
+.product-stars{font-size:10px;color:var(--gold);margin-bottom:10px}
+.add-cart-btn{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:7px;padding:7px;font-size:11px;color:var(--text2);cursor:pointer;letter-spacing:0.04em;transition:all .2s}
+.add-cart-btn:hover{background:var(--gold);color:#0D0D0D;border-color:var(--gold)}
+
+/* CART PANEL */
+.cart-panel{background:var(--bg2);border-top:1px solid var(--border);padding:20px 28px}
+.cart-panel-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:16px;color:var(--text)}
+.cart-items{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.cart-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cart-item-left{display:flex;align-items:center;gap:10px}
+.cart-item-img{width:36px;height:36px;background:var(--bg4);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.cart-item-name{font-size:12px;font-weight:500;color:var(--text)}
+.cart-item-sub{font-size:10px;color:var(--text3)}
+.cart-item-price{font-size:13px;font-weight:500;color:var(--gold)}
+.remove-btn{background:none;border:none;color:var(--text3);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;transition:color .2s}
+.remove-btn:hover{color:var(--red)}
+.cart-summary{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid var(--border);margin-top:4px}
+.cart-total-lbl{font-size:12px;color:var(--text2)}
+.cart-total-val{font-family:'DM Serif Display',serif;font-size:20px;color:var(--gold)}
+.checkout-btn{width:100%;background:var(--gold);color:#0D0D0D;border:none;border-radius:10px;padding:12px;font-size:13px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.checkout-btn:hover{opacity:.85}
+.cart-empty{text-align:center;padding:24px;color:var(--text3);font-size:12px}
+.toast{display:none;background:var(--bg3);border:1px solid var(--gold-dim);border-radius:8px;padding:8px 14px;font-size:12px;color:var(--gold);text-align:center;margin-bottom:12px}
+.toast.show{display:block}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+<h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">NOIR — Premium dark fashion e-commerce platform with product listings, filters, and shopping cart</h2>
+
+<div style="background:var(--bg);min-height:900px">
+
+<nav class="nav">
+  <div class="nav-logo">NOIR</div>
+  <ul class="nav-links">
+    <li><a class="active">New In</a></li>
+    <li><a>Women</a></li>
+    <li><a>Men</a></li>
+    <li><a>Accessories</a></li>
+    <li><a>Sale</a></li>
+  </ul>
+  <div class="nav-right">
+    <input class="search-box" placeholder="Search styles..." />
+    <button class="cart-btn" onclick="scrollToCart()">
+      Bag <span class="cart-count" id="cart-count">0</span>
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="hero-eyebrow">SS 2026 Collection</div>
+    <h1 class="hero-title">Dress in<br><em>darkness,</em><br>stand out.</h1>
+    <p class="hero-sub">Premium fashion curated for those who define their own aesthetic. Luxury essentials, bold statement pieces.</p>
+    <div class="hero-actions">
+      <button class="btn-gold">Shop Collection</button>
+      <button class="btn-outline">View Lookbook</button>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">2K+</div><div class="hero-stat-lbl">Styles</div></div>
+      <div><div class="hero-stat-num">48h</div><div class="hero-stat-lbl">Delivery</div></div>
+      <div><div class="hero-stat-num">Free</div><div class="hero-stat-lbl">Returns</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-visual-icon">🖤</div>
+    <div class="hero-visual-lbl">SS 2026 — Drop 01</div>
+  </div>
+</div>
+
+<div class="cats">
+  <div class="cat-pill active" onclick="filterCategory('all',this)">All</div>
+  <div class="cat-pill" onclick="filterCategory('outerwear',this)">Outerwear</div>
+  <div class="cat-pill" onclick="filterCategory('tops',this)">Tops</div>
+  <div class="cat-pill" onclick="filterCategory('bottoms',this)">Bottoms</div>
+  <div class="cat-pill" onclick="filterCategory('dresses',this)">Dresses</div>
+  <div class="cat-pill" onclick="filterCategory('accessories',this)">Accessories</div>
+  <div class="cat-pill" onclick="filterCategory('footwear',this)">Footwear</div>
+</div>
+
+<div class="main">
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-title">Size</div>
+      <div class="size-grid">
+        <div class="size-btn" onclick="toggleSize(this)">XS</div>
+        <div class="size-btn active" onclick="toggleSize(this)">S</div>
+        <div class="size-btn active" onclick="toggleSize(this)">M</div>
+        <div class="size-btn" onclick="toggleSize(this)">L</div>
+        <div class="size-btn" onclick="toggleSize(this)">XL</div>
+        <div class="size-btn" onclick="toggleSize(this)">XXL</div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Color</div>
+      <div class="color-swatches">
+        <div class="swatch active" style="background:#0D0D0D;border-color:var(--gold)"></div>
+        <div class="swatch" style="background:#FFFFFF;border-color:var(--border2)"></div>
+        <div class="swatch" style="background:#2D2D2D"></div>
+        <div class="swatch" style="background:#8B1A1A"></div>
+        <div class="swatch" style="background:#1A3A5C"></div>
+        <div class="swatch" style="background:#C9A84C"></div>
+        <div class="swatch" style="background:#4A3728"></div>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Price Range</div>
+      <div class="price-range">
+        <div class="price-inputs">
+          <input class="price-input" placeholder="Min" value="0" id="price-min"/>
+          <input class="price-input" placeholder="Max" value="500" id="price-max"/>
+        </div>
+        <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
+      </div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Brand</div>
+      <div class="filter-option"><input type="checkbox" checked id="b1"><label for="b1">Noir Atelier</label></div>
+      <div class="filter-option"><input type="checkbox" id="b2"><label for="b2">Void Studio</label></div>
+      <div class="filter-option"><input type="checkbox" id="b3"><label for="b3">Obsidian Co.</label></div>
+      <div class="filter-option"><input type="checkbox" id="b4"><label for="b4">Shadow Label</label></div>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-title">Rating</div>
+      <div class="filter-option"><input type="checkbox" id="r1"><label for="r1">★★★★★ (5 stars)</label></div>
+      <div class="filter-option"><input type="checkbox" checked id="r2"><label for="r2">★★★★☆ (4+ stars)</label></div>
+      <div class="filter-option"><input type="checkbox" id="r3"><label for="r3">★★★☆☆ (3+ stars)</label></div>
+    </div>
+  </div>
+
+  <div class="products-area">
+    <div class="products-header">
+      <span class="products-count" id="prod-count">Showing 8 products</span>
+      <select class="sort-select" onchange="sortProducts(this.value)">
+        <option value="featured">Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="newest">Newest First</option>
+      </select>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </div>
+</div>
+
+<div class="cart-panel" id="cart-section">
+  <div class="toast" id="toast">Added to bag!</div>
+  <div class="cart-panel-title">Your Bag</div>
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty" id="cart-empty">Your bag is empty</div>
+  </div>
+  <div class="cart-summary" id="cart-summary" style="display:none">
+    <div>
+      <div class="cart-total-lbl">Total</div>
+      <div class="cart-total-val" id="cart-total">PKR 0</div>
+    </div>
+    <button class="checkout-btn" style="width:auto;padding:12px 32px">Checkout</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+const products = [
+  {id:1,name:'Void Trench Coat',brand:'Noir Atelier',price:18500,oldPrice:24000,emoji:'🧥',cat:'outerwear',badge:'New',stars:'★★★★★',rating:5},
+  {id:2,name:'Shadow Knit Sweater',brand:'Void Studio',price:6200,oldPrice:null,emoji:'👕',cat:'tops',badge:null,stars:'★★★★☆',rating:4},
+  {id:3,name:'Obsidian Wide-Leg Pants',brand:'Obsidian Co.',price:8900,oldPrice:12000,emoji:'👖',cat:'bottoms',badge:'Sale',stars:'★★★★★',rating:5},
+  {id:4,name:'Noir Slip Dress',brand:'Shadow Label',price:11200,oldPrice:null,emoji:'👗',cat:'dresses',badge:'New',stars:'★★★★☆',rating:4},
+  {id:5,name:'Matte Chain Belt',brand:'Noir Atelier',price:3400,oldPrice:null,emoji:'👜',cat:'accessories',badge:null,stars:'★★★★★',rating:5},
+  {id:6,name:'Platform Chelsea Boot',brand:'Void Studio',price:15600,oldPrice:19000,emoji:'👢',cat:'footwear',badge:'Sale',stars:'★★★★☆',rating:4},
+  {id:7,name:'Draped Blazer',brand:'Obsidian Co.',price:14200,oldPrice:null,emoji:'🥼',cat:'outerwear',badge:'New',stars:'★★★★★',rating:5},
+  {id:8,name:'Asymmetric Midi Skirt',brand:'Shadow Label',price:7800,oldPrice:9500,emoji:'🩱',cat:'bottoms',badge:'Sale',stars:'★★★★☆',rating:4},
+];
+
+let cart=[];
+let filtered=[...products];
+let activeCategory='all';
+
+function renderProducts(list){
+  const grid=document.getElementById('products-grid');
+  document.getElementById('prod-count').textContent='Showing '+list.length+' product'+(list.length!==1?'s':'');
+  grid.innerHTML=list.map(p=>`
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-emoji">${p.emoji}</div>
+        ${p.badge?`<div class="product-badge${p.badge==='Sale'?' sale':''}">${p.badge}</div>`:''}
+        <div class="product-wishlist">♡</div>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price">
+          <span class="price-current">PKR ${p.price.toLocaleString()}</span>
+          ${p.oldPrice?`<span class="price-old">PKR ${p.oldPrice.toLocaleString()}</span>`:''}
+        </div>
+        <div class="product-stars">${p.stars}</div>
+        <button class="add-cart-btn" onclick="addToCart(${p.id})">Add to Bag</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const existing=cart.find(x=>x.id===id);
+  if(existing){existing.qty++;}else{cart.push({...p,qty:1});}
+  updateCart();
+  showToast();
+}
+
+function removeFromCart(id){
+  cart=cart.filter(x=>x.id!==id);
+  updateCart();
+}
+
+function updateCart(){
+  const count=cart.reduce((a,x)=>a+x.qty,0);
+  document.getElementById('cart-count').textContent=count;
+  const total=cart.reduce((a,x)=>a+x.price*x.qty,0);
+  document.getElementById('cart-total').textContent='PKR '+total.toLocaleString();
+  const empty=document.getElementById('cart-empty');
+  const summary=document.getElementById('cart-summary');
+  const items=document.getElementById('cart-items');
+  if(cart.length===0){
+    empty.style.display='block';
+    summary.style.display='none';
+    items.innerHTML='<div class="cart-empty" id="cart-empty">Your bag is empty</div>';
+  } else {
+    summary.style.display='flex';
+    items.innerHTML=cart.map(x=>`
+      <div class="cart-item">
+        <div class="cart-item-left">
+          <div class="cart-item-img">${x.emoji}</div>
+          <div>
+            <div class="cart-item-name">${x.name}</div>
+            <div class="cart-item-sub">${x.brand} · Qty: ${x.qty}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="cart-item-price">PKR ${(x.price*x.qty).toLocaleString()}</div>
+          <button class="remove-btn" onclick="removeFromCart(${x.id})">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+}
+
+function showToast(){
+  const t=document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2000);
+}
+
+function filterCategory(cat,el){
+  activeCategory=cat;
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  filtered=cat==='all'?[...products]:products.filter(p=>p.cat===cat);
+  renderProducts(filtered);
+}
+
+function toggleSize(el){el.classList.toggle('active');}
+
+function applyFilters(){
+  const min=parseInt(document.getElementById('price-min').value)||0;
+  const max=parseInt(document.getElementById('price-max').value)||999999;
+  const base=activeCategory==='all'?products:products.filter(p=>p.cat===activeCategory);
+  filtered=base.filter(p=>p.price>=min&&p.price<=max);
+  renderProducts(filtered);
+}
+
+function sortProducts(val){
+  if(val==='price-asc')filtered.sort((a,b)=>a.price-b.price);
+  else if(val==='price-desc')filtered.sort((a,b)=>b.price-a.price);
+  else if(val==='newest')filtered.sort((a,b)=>b.id-a.id);
+  else filtered=[...products].filter(p=>activeCategory==='all'||p.cat===activeCategory);
+  renderProducts(filtered);
+}
+
+function scrollToCart(){
+  document.getElementById('cart-section').scrollIntoView({behavior:'smooth'});
+}
+
+renderProducts(products);
+</script>

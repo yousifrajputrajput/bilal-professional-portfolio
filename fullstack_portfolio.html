@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAF8F3;
+    --ink: #1A1A18;
+    --muted: #6B6B66;
+    --accent: #2D5BE3;
+    --accent-light: #EEF2FD;
+    --border: rgba(26,26,24,0.1);
+    --card-bg: #FFFFFF;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(250,248,243,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--ink); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 0.875rem; font-weight: 400; color: var(--muted); text-decoration: none; letter-spacing: 0.02em; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-cta { background: var(--ink); color: var(--cream); font-size: 0.8rem; font-family: 'DM Sans', sans-serif; border: none; padding: 0.5rem 1.25rem; border-radius: 100px; cursor: pointer; letter-spacing: 0.04em; transition: opacity 0.2s; }
+  .nav-cta:hover { opacity: 0.8; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 4rem;
+    padding: 8rem 2.5rem 4rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-left { display: flex; flex-direction: column; gap: 1.5rem; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--accent-light); color: var(--accent);
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 0.35rem 0.85rem; border-radius: 100px; width: fit-content;
+  }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
+    line-height: 1.15; color: var(--ink);
+    font-weight: 400;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  .hero-desc { font-size: 1.05rem; color: var(--muted); line-height: 1.7; max-width: 420px; font-weight: 300; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--ink); color: var(--cream); font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 500; border: none; padding: 0.75rem 1.75rem;
+    border-radius: 100px; cursor: pointer; transition: opacity 0.2s;
+  }
+  .btn-primary:hover { opacity: 0.8; }
+  .btn-secondary {
+    background: transparent; color: var(--ink); font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 500; border: 1px solid var(--border);
+    padding: 0.75rem 1.75rem; border-radius: 100px; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-secondary:hover { background: rgba(26,26,24,0.05); }
+  .hero-stats { display: flex; gap: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+  .stat-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); }
+  .stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.02em; }
+
+  /* Hero right — avatar card */
+  .hero-right { display: flex; justify-content: center; }
+  .avatar-card {
+    width: 320px; background: var(--card-bg);
+    border: 1px solid var(--border); border-radius: 24px;
+    padding: 2rem; text-align: center;
+    box-shadow: 0 8px 40px rgba(26,26,24,0.06);
+    animation: floatCard 4s ease-in-out infinite;
+  }
+  @keyframes floatCard { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
+  .avatar-ring {
+    width: 90px; height: 90px; border-radius: 50%; margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #2D5BE3, #8B5CF6);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif; font-size: 2rem; color: white;
+  }
+  .card-name { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 0.25rem; }
+  .card-title { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.03em; margin-bottom: 1.25rem; }
+  .skills-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; }
+  .chip {
+    font-size: 0.7rem; font-weight: 500; padding: 0.3rem 0.75rem;
+    border-radius: 100px; border: 1px solid var(--border); color: var(--muted);
+    background: var(--cream);
+  }
+  .chip.accent { background: var(--accent-light); color: var(--accent); border-color: transparent; }
+
+  /* SECTION COMMON */
+  section { max-width: 1100px; margin: 0 auto; padding: 5rem 2.5rem; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 400; line-height: 1.2; margin-bottom: 1rem;
+  }
+  .section-sub { font-size: 1rem; color: var(--muted); font-weight: 300; max-width: 500px; }
+
+  /* SKILLS */
+  .skills-section { background: var(--ink); color: var(--cream); }
+  .skills-inner { max-width: 1100px; margin: 0 auto; padding: 5rem 2.5rem; }
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .skill-card {
+    background: rgba(250,248,243,0.05); border: 1px solid rgba(250,248,243,0.12);
+    border-radius: 16px; padding: 1.5rem;
+  }
+  .skill-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+  .skill-name { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--cream); margin-bottom: 0.5rem; }
+  .skill-items { font-size: 0.8rem; color: rgba(250,248,243,0.55); line-height: 1.8; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .project-card {
+    background: var(--card-bg); border: 1px solid var(--border); border-radius: 20px;
+    padding: 1.75rem; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,26,24,0.08); }
+  .project-tag {
+    font-size: 0.7rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem;
+  }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.25rem; }
+  .project-stack { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+  .stack-tag {
+    font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 6px;
+    background: var(--cream); border: 1px solid var(--border); color: var(--muted);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    margin-top: 1rem; font-size: 0.8rem; font-weight: 500; color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* EXPERIENCE */
+  .exp-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 0; }
+  .exp-item {
+    display: grid; grid-template-columns: 160px 1fr;
+    gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border);
+  }
+  .exp-year { font-size: 0.8rem; color: var(--muted); padding-top: 0.2rem; }
+  .exp-role { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 0.2rem; }
+  .exp-company { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.5rem; }
+  .exp-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+  /* CONTACT */
+  .contact-section { background: var(--ink); }
+  .contact-inner { max-width: 1100px; margin: 0 auto; padding: 6rem 2.5rem; text-align: center; }
+  .contact-inner .section-title { color: var(--cream); }
+  .contact-inner .section-sub { color: rgba(250,248,243,0.5); margin: 0 auto 2.5rem; }
+  .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .contact-btn {
+    background: rgba(250,248,243,0.08); color: var(--cream);
+    border: 1px solid rgba(250,248,243,0.15); border-radius: 100px;
+    padding: 0.75rem 1.75rem; font-family: 'DM Sans', sans-serif; font-size: 0.875rem;
+    cursor: pointer; transition: background 0.2s; font-weight: 400;
+  }
+  .contact-btn:hover { background: rgba(250,248,243,0.15); }
+  .contact-btn.main-btn { background: var(--cream); color: var(--ink); }
+  .contact-btn.main-btn:hover { opacity: 0.9; }
+
+  footer { text-align: center; padding: 1.5rem; font-size: 0.75rem; color: var(--muted); background: var(--cream); border-top: 1px solid var(--border); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Alex.dev</div>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Hire Me</button>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1100px;margin:0 auto;">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-badge">Available for hire</div>
+      <h1>Full Stack <em>Developer</em> & Problem Solver</h1>
+      <p class="hero-desc">I build scalable web applications from database to UI — clean code, fast performance, and great user experiences.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View My Work</button>
+        <button class="btn-secondary" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in Touch</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">3+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Projects Delivered</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Happy Clients</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="avatar-card">
+        <div class="avatar-ring">A</div>
+        <div class="card-name">Alex Johnson</div>
+        <div class="card-title">Full Stack Developer · Karachi, PK</div>
+        <div class="skills-chips">
+          <span class="chip accent">React</span>
+          <span class="chip accent">Node.js</span>
+          <span class="chip">MongoDB</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">AWS</span>
+          <span class="chip">Docker</span>
+          <span class="chip accent">TypeScript</span>
+          <span class="chip">Next.js</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<div class="skills-section" id="skills">
+  <div class="skills-inner">
+    <div class="section-label" style="color:rgba(250,248,243,0.45)">What I work with</div>
+    <h2 class="section-title" style="color:var(--cream)">My Tech Stack</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🖥</div>
+        <div class="skill-name">Frontend</div>
+        <div class="skill-items">React · Next.js · TypeScript<br>Tailwind CSS · Redux · Figma</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-name">Backend</div>
+        <div class="skill-items">Node.js · Express · NestJS<br>REST APIs · GraphQL · WebSockets</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🗄</div>
+        <div class="skill-name">Databases</div>
+        <div class="skill-items">PostgreSQL · MongoDB · Redis<br>Prisma ORM · Firebase</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-name">DevOps & Cloud</div>
+        <div class="skill-items">AWS · Docker · CI/CD<br>Linux · Nginx · Vercel</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Selected Work</div>
+  <h2 class="section-title">Projects I've Built</h2>
+  <p class="section-sub">Real-world applications built with modern technologies and a focus on performance.</p>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-tag">SaaS Platform</div>
+      <div class="project-title">TaskFlow — Project Management App</div>
+      <div class="project-desc">A real-time project management tool with Kanban boards, team collaboration, and analytics dashboard. 500+ active users.</div>
+      <div class="project-stack">
+        <span class="stack-tag">Next.js</span>
+        <span class="stack-tag">Node.js</span>
+        <span class="stack-tag">PostgreSQL</span>
+        <span class="stack-tag">Socket.io</span>
+      </div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">E-Commerce</div>
+      <div class="project-title">ShopCore — Multi-vendor Marketplace</div>
+      <div class="project-desc">Full-featured marketplace with vendor dashboards, Stripe payments, inventory management, and order tracking.</div>
+      <div class="project-stack">
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Express</span>
+        <span class="stack-tag">MongoDB</span>
+        <span class="stack-tag">Stripe</span>
+      </div>
+      <a href="#" class="project-link">View Project →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-tag">API / Backend</div>
+      <div class="project-title">AuthKit — Authentication Microservice</div>
+      <div class="project-desc">Production-ready auth service with JWT, OAuth2, 2FA, and role-based access control. Open source with 300+ GitHub stars.</div>
+      <div class="project-stack">
+        <span class="stack-tag">NestJS</span>
+        <span class="stack-tag">Redis</span>
+        <span class="stack-tag">Docker</span>
+        <span class="stack-tag">AWS</span>
+      </div>
+      <a href="#" class="project-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div style="background:#F4F2ED;">
+<section id="experience" style="background:transparent;">
+  <div class="section-label">Career</div>
+  <h2 class="section-title">Work Experience</h2>
+  <div class="exp-list">
+    <div class="exp-item">
+      <div class="exp-year">2023 — Present</div>
+      <div>
+        <div class="exp-role">Senior Full Stack Developer</div>
+        <div class="exp-company">TechNova Solutions · Karachi</div>
+        <div class="exp-desc">Leading development of a B2B SaaS platform. Architected microservices backend, reduced API response time by 60%, and mentored 3 junior developers.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-year">2022 — 2023</div>
+      <div>
+        <div class="exp-role">Full Stack Developer</div>
+        <div class="exp-company">DigitalCraft Agency · Remote</div>
+        <div class="exp-desc">Built 10+ client projects ranging from e-commerce stores to custom dashboards. Primary stack: React, Node.js, and MongoDB.</div>
+      </div>
+    </div>
+    <div class="exp-item">
+      <div class="exp-year">2021 — 2022</div>
+      <div>
+        <div class="exp-role">Junior Developer</div>
+        <div class="exp-company">StartupHub · Karachi</div>
+        <div class="exp-desc">Developed REST APIs and frontend components for a fintech startup. Gained strong foundations in agile workflows and code review practices.</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="section-label" style="color:rgba(250,248,243,0.4)">Let's connect</div>
+    <h2 class="section-title">Open to Opportunities</h2>
+    <p class="section-sub">Whether it's a full-time role, freelance project, or just a chat — I'd love to hear from you.</p>
+    <div class="contact-links">
+      <button class="contact-btn main-btn">alex@email.com</button>
+      <button class="contact-btn">LinkedIn</button>
+      <button class="contact-btn">GitHub</button>
+      <button class="contact-btn">Resume PDF</button>
+    </div>
+  </div>
+</div>
+
+<footer>© 2026 Alex Johnson — Built with care.</footer>
+
+</body>
+</html>
